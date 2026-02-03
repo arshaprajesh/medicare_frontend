@@ -18,7 +18,7 @@ function DoctorRegistration(){
 
     // Load doctor types when page loads
     useEffect(() => {
-        axios.get("http://localhost:8084/doctors/types")
+        axios.get(`${import.meta.env.VITE_BACKEND_URL}/doctors/types`)
         .then(res => {
             console.log("Types loaded:", res.data);
             setType(res.data)
@@ -29,7 +29,7 @@ function DoctorRegistration(){
 
     useEffect(() => {
         if (selectedType) {
-            axios.get(`http://localhost:8084/doctors/type/${selectedType}`)
+            axios.get(`${import.meta.env.VITE_BACKEND_URL}/doctors/type/${selectedType}`)
                .then(res => {
                 console.log("Doctors:", res.data);
                 setDoctors(res.data);
@@ -64,7 +64,7 @@ console.log("Formatted date:", formattedDate);
 
 try{
 
-    const response = await axios.post('http://localhost:8084/appointment/appointmentDetails',null,
+    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/appointment/appointmentDetails`,null,
         {
             params:{
         doctorId: selectedDoc.doctor_id,

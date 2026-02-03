@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: globalmedicare-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: globalmedicare-frontend
+  template:
+    metadata:
+      labels:
+        app: globalmedicare-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: globalmedicare-frontend:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 80
+          env:
+            - name: VITE_BACKEND_URL
+              value: http://globalmedicare-backend-service:8084
