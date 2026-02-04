@@ -10,7 +10,7 @@ pipeline {
          stage('Clone') {
              steps {
                  git branch: 'feature/addAppointment', url: 'https://github.com/arshaprajesh/medicare_frontend.git'
-                 echo 'Repository cloned.
+                 echo 'Repository cloned'.
 
              }
          }
