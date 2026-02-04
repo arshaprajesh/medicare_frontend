@@ -46,7 +46,8 @@ pipeline {
          stage('deploy to kubernetes'){
              steps {
                  dir('globalmedicare-app') {
-                      sh 'kubectl apply -f k8s/'
+                      sh 'kubectl apply -f k8s/frontend-deployment.yaml'
+                      sh 'kubectl apply -f k8s/frontend-service.yaml'
                       echo ' successfully deployed'
                  }
              }
