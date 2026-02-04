@@ -1,5 +1,5 @@
 pipeline {
-     agent only
+     agent any
 
      environment {
          IMAGE = "globalmedicare-frontend"
@@ -9,7 +9,7 @@ pipeline {
      stages {
          stage('Clone') {
              steps {
-                 git 'https://github.com/arshaprajesh/medicare_frontend.git'
+                 git branch: 'feature/addAppointment', url: 'https://github.com/arshaprajesh/medicare_frontend.git'
                  echo 'Repository cloned.
 
              }
