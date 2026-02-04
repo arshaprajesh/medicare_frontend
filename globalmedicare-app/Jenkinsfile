@@ -16,15 +16,19 @@ pipeline {
          }
          stage('Build frontend') {
              steps {
-                 sh 'npm install'
-                 sh 'npm run build'
-                 echo 'JAR built successfully.'
+                 dir('globalmedicare-app') {
+                     sh 'npm install'
+                     sh 'npm run build'
+                     echo 'JAR built successfully.'
+                 }
              }
          }
          stage('Docker build'){
              steps {
-                 sh 'docker build -t $REGISTRY/$IMAGE:$TAG .'
-                 echo 'image successfully created.'
+                 dir('globalmedicare-app') {
+                     sh 'docker build -t $REGISTRY/$IMAGE:$TAG .'
+                     echo 'image successfully created.'
+                 }
              }
          }
          stage('Docker push'){
@@ -41,8 +45,10 @@ pipeline {
          }
          stage('deploy to kubernetes'){
              steps {
-                 sh 'kubectl apply -f k8s/'
-                 echo ' successfully deployed'
+                 dir('globalmedicare-app') {
+                      sh 'kubectl apply -f k8s/'
+                      echo ' successfully deployed'
+                 }
              }
          }
      }
