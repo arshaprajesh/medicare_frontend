@@ -14,7 +14,7 @@ pipeline {
 
              }
          }
-         stage('Ensure KIND Cluster Exists') {
+         /*stage('Ensure KIND Cluster Exists') {
               steps {
                   echo 'Checking for existing KIND cluster...'
                   sh '''
@@ -27,7 +27,7 @@ pipeline {
                       fi
                   '''
               }
-         }
+         }*/
          stage('Build frontend') {
              steps {
                  dir('globalmedicare-app') {
