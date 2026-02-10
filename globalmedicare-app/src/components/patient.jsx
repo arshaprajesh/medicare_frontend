@@ -13,6 +13,7 @@ debugger
 
         try {
             const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/patientDetails/login`, { username: userName, password: userPassword });
+            console.log("Backend URL:", import.meta.env.VITE_BACKEND_URL);
             alert("Login Successfully!");
             navigate("/home");
 
