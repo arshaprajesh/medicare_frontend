@@ -57,19 +57,18 @@ function DoctorRegistration(){
            alert("Please select at least one doctor.");
            return;
        }
-const selectedDoc = doctors.find(d => findDoctor.includes(d.doctor_id));
-
-const formattedDate = selectedDoc.date.split("T")[0];
-console.log("Formatted date:", formattedDate);
+const selectedDoc = doctors.filter(d => findDoctor.includes(d.doctor_id));
+const totalFee = selectedDoc.reduce((sum, d) => sum + d.fee, 0);
+const formattedDate = selectedDoc[0].date.split("T")[0];
 
 try{
 
     const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/appointment/appointmentDetails`,null,
         {
             params:{
-        doctorId: selectedDoc.doctor_id,
+        doctorId: findDoctor,
         patientId:1,
-        location: selectedDoc.location,
+        location: selectedDoc[0].location,
         date: formattedDate
 
         }
@@ -77,12 +76,15 @@ try{
 
        const saved = response.data;
        console.log("Appointment saved:", saved);
+
+
        navigate("/payment", {
            state: {
-               doctorId: selectedDoc.doctor_id,
-               doctorName: selectedDoc.doctor_name,
-               location: selectedDoc.location,
-               date: selectedDoc.date
+               appointmentId: saved.appointment_id,
+               doctorName: selectedDoc.map(d => d.doctor_name).join(", "),
+               location: selectedDoc[0].location,
+               date: selectedDoc[0].date,
+               totalFee: totalFee
            }
        });
    }catch (err) {
